@@ -29,6 +29,9 @@
 		973E0E6126034F7D000B9BC5 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973E0E6026034F7D000B9BC5 /* AuthenticationManager.swift */; };
 		973E0E6426034F94000B9BC5 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973E0E6326034F94000B9BC5 /* HapticsManager.swift */; };
 		973E0E6A2603509E000B9BC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 973E0E692603509E000B9BC5 /* GoogleService-Info.plist */; };
+		973E0E98260434AE000B9BC5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973E0E97260434AE000B9BC5 /* Extensions.swift */; };
+		973E0E9B26043B06000B9BC5 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973E0E9A26043B06000B9BC5 /* PostModel.swift */; };
+		973E0EB326047027000B9BC5 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973E0EB226047027000B9BC5 /* CommentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +58,9 @@
 		973E0E6026034F7D000B9BC5 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		973E0E6326034F94000B9BC5 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		973E0E692603509E000B9BC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		973E0E97260434AE000B9BC5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		973E0E9A26043B06000B9BC5 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		973E0EB226047027000B9BC5 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		C4C6D12AC1A6B6DDFF5D0621 /* Pods_TikTok.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TikTok.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE94DDD4E2BF747898DF95B8 /* Pods-TikTok.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.debug.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.debug.xcconfig"; sourceTree = "<group>"; };
 		F495E30C20E09BC08485343E /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
@@ -128,6 +134,7 @@
 				973E0E13260347C2000B9BC5 /* AppDelegate.swift */,
 				973E0E15260347C2000B9BC5 /* SceneDelegate.swift */,
 				973E0E1C260347C4000B9BC5 /* Assets.xcassets */,
+				973E0E97260434AE000B9BC5 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -144,6 +151,7 @@
 		973E0E2E26034DFD000B9BC5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				973E0E9A26043B06000B9BC5 /* PostModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -197,6 +205,7 @@
 				973E0E4826034EF3000B9BC5 /* SignUpViewController.swift */,
 				973E0E4B26034EF8000B9BC5 /* SettingsViewController.swift */,
 				973E0E5326034F4E000B9BC5 /* PostViewController.swift */,
+				973E0EB226047027000B9BC5 /* CommentViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -349,17 +358,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				973E0E6426034F94000B9BC5 /* HapticsManager.swift in Sources */,
+				973E0E9B26043B06000B9BC5 /* PostModel.swift in Sources */,
 				973E0E5E26034F74000B9BC5 /* DatabaseManager.swift in Sources */,
 				973E0E3626034E93000B9BC5 /* ExploreViewController.swift in Sources */,
 				973E0E4326034EE6000B9BC5 /* UserListViewController.swift in Sources */,
 				973E0E4C26034EF8000B9BC5 /* SettingsViewController.swift in Sources */,
 				973E0E5826034F65000B9BC5 /* APICaller.swift in Sources */,
 				973E0E5426034F4E000B9BC5 /* PostViewController.swift in Sources */,
+				973E0E98260434AE000B9BC5 /* Extensions.swift in Sources */,
 				973E0E3A26034ECA000B9BC5 /* CameraViewController.swift in Sources */,
 				973E0E4F26034F18000B9BC5 /* TabBarViewController.swift in Sources */,
 				973E0E18260347C2000B9BC5 /* HomeViewController.swift in Sources */,
 				973E0E4926034EF3000B9BC5 /* SignUpViewController.swift in Sources */,
 				973E0E6126034F7D000B9BC5 /* AuthenticationManager.swift in Sources */,
+				973E0EB326047027000B9BC5 /* CommentViewController.swift in Sources */,
 				973E0E3D26034ED6000B9BC5 /* NotificationsViewController.swift in Sources */,
 				973E0E4626034EEC000B9BC5 /* SignInViewController.swift in Sources */,
 				973E0E4026034EDB000B9BC5 /* ProfileViewController.swift in Sources */,
