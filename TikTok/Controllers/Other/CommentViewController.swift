@@ -16,8 +16,8 @@ class CommentViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(
-            UITableViewCell.self,
-            forCellReuseIdentifier: "cell"
+            CommentTableViewCell.self,
+            forCellReuseIdentifier: CommentTableViewCell.identifier
         )
         return tableView
     }()
@@ -77,11 +77,23 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: CommentTableViewCell.identifier,
+            for: indexPath) as? CommentTableViewCell else {
+            return UITableViewCell()
+        }
         let comment = comments[indexPath.row]
-        cell.textLabel?.text = comment.text
-//        cell.textLabel?.text = "first comment for this post!"
+        cell.configure(with: comment)
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }
