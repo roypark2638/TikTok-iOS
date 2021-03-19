@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol PostViewControllerDelegate: AnyObject {
+    func postViewController(_ vc: PostViewController, didTapCommentButtonFor post: PostModel)
+}
+
 class PostViewController: UIViewController {
+    
+    weak var delegate: PostViewControllerDelegate?
     
     var model: PostModel
     
@@ -163,8 +169,8 @@ class PostViewController: UIViewController {
     }
     
     @objc private func didTouchComment() {
-        // Present comment tray
+        // the reason why we are using the delegate is that we want to display the comment tray and have control of pageVC to manage some features
+        delegate?.postViewController(self, didTapCommentButtonFor: model)
     }
  
-
 }
