@@ -8,7 +8,6 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    
     // MARK: - Properties
 
     private let horizontalScrollView: UIScrollView = {
@@ -61,8 +60,7 @@ class HomeViewController: UIViewController {
     
     private func setUpFeed() {
         horizontalScrollView.contentSize =  CGSize(width: view.width * 2, height: view.height)
-        
-        // For you
+                
         setUpFollowingFeed()
         setUpForYouFeed()
     }
@@ -83,8 +81,10 @@ class HomeViewController: UIViewController {
     private func setUpFollowingFeed() {
         guard let model = followingPosts.first else { return }
         
+        let vc = PostViewController(model: model)
+        vc.delegate = self
         followingPageViewController.setViewControllers(
-            [PostViewController(model: model)],
+            [vc],
             direction: .forward,
             animated: false,
             completion: nil
@@ -106,9 +106,10 @@ class HomeViewController: UIViewController {
 
     private func setUpForYouFeed() {
         guard let model = forYouPosts.first else { return }
-        
+        let vc = PostViewController(model: model)
+        vc.delegate = self
         forYouPageViewController.setViewControllers(
-            [PostViewController(model: model)],
+            [vc],
             direction: .forward,
             animated: false,
             completion: nil
@@ -154,6 +155,7 @@ extension HomeViewController: UIPageViewControllerDataSource {
         let priorIndex = index - 1
         let model = currentPosts[priorIndex]
         let vc = PostViewController(model: model)
+        vc.delegate = self
         return vc
     }
     
@@ -177,6 +179,7 @@ extension HomeViewController: UIPageViewControllerDataSource {
         let nextIndex = index + 1
         let model = currentPosts[nextIndex]
         let vc = PostViewController(model: model)
+        vc.delegate = self
         return vc
     }
     
@@ -204,5 +207,64 @@ extension HomeViewController: UIScrollViewDelegate {
         else if scrollView.contentOffset.x > (view.width/2) {
             control.selectedSegmentIndex = 1
         }
+    }
+}
+
+// MARK: - PostViewControllerDelegate
+
+extension HomeViewController: PostViewControllerDelegate {
+    
+    func postViewController(_ vc: PostViewController, didTapCommentButtonFor post: PostModel) {
+        // disable to swap left and right
+        horizontalScrollView.isScrollEnabled = false
+        
+        // disable to swap up and down
+        if horizontalScrollView.contentOffset.x == 0 {
+            // Following page
+            followingPageViewController.dataSource = nil
+        }
+        else {
+            // For You page
+            forYouPageViewController.dataSource = nil
+        }
+        
+        
+        let vc = CommentViewController(post: post)
+        vc.delegate = self
+        // instead of present the VC we will add it to the child
+        
+        addChild(vc)
+        vc.didMove(toParent: self)
+        view.addSubview(vc.view)
+        let frame: CGRect = CGRect(x: 0, y: view.height, width: view.width, height: view.height * 0.76)
+        vc.view.frame = frame
+        UIView.animate(withDuration: 0.2) {
+            vc.view.frame = CGRect(x: 0, y: self.view.height - frame.height, width: frame.width, height: frame.height)
+        }
+    }
+}
+
+
+// MARK: - CommentViewControllerDelegate
+
+extension HomeViewController: CommentViewControllerDelegate {
+    func didTapCloseForComments(with viewController: CommentViewController) {
+        // close comments with animation
+        let frame = viewController.view.frame
+        UIView.animate(withDuration: 0.2) {
+            viewController.view.frame = CGRect(x: 0, y: self.view.height, width: frame.width, height: frame.height)
+        } completion: { [weak self] (done) in
+            DispatchQueue.main.async {
+                // remove comment vc as child
+                viewController.view.removeFromSuperview()
+                viewController.removeFromParent()
+                // allow horizontal and vertical scroll
+                self?.horizontalScrollView.isScrollEnabled = true
+                self?.followingPageViewController.dataSource = self
+                self?.forYouPageViewController.dataSource = self
+            }
+            
+        }
+        
     }
 }
