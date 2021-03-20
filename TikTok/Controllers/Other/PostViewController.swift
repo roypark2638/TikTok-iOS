@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol PostViewControllerDelegate: AnyObject {
     func postViewController(_ vc: PostViewController, didTapCommentButtonFor post: PostModel)
+    func postViewController(_ vc: PostViewController, didTapProfileButtonFor post: PostModel)
 }
 
 class PostViewController: UIViewController {
@@ -44,6 +46,16 @@ class PostViewController: UIViewController {
         return button
     }()
     
+    private let profileButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "test"), for: .normal)
+        button.layoutIfNeeded()
+        button.subviews.first?.contentMode = .scaleAspectFill
+        button.tintColor = .white
+        button.layer.masksToBounds = true
+        return button
+    }()
+    
     private let captionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -53,6 +65,8 @@ class PostViewController: UIViewController {
         label.font = .systemFont(ofSize: 24)
         return label
     }()
+    
+    var player: AVPlayer?
     
     // MARK: - Init
     
@@ -69,6 +83,7 @@ class PostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureVideo()
         
         let colors: [UIColor] = [
             .systemPink, .green, .black, .yellow, .blue, .cyan, .brown
@@ -85,8 +100,9 @@ class PostViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         let size: CGFloat = 40
-        let yStart: CGFloat = view.height - (size * 4) - 15 - view.safeAreaInsets.bottom - (tabBarController?.tabBar.height ?? 0)
-        for (index, button) in [likeButton, commentButton, shareButton].enumerated() {
+        let tapBarHeight: CGFloat = tabBarController?.tabBar.height ?? 0
+        let yStart: CGFloat = view.height - (size * 5.0) - 15.0 - view.safeAreaInsets.bottom - tapBarHeight
+        for (index, button) in [profileButton, likeButton, commentButton, shareButton].enumerated() {
             button.frame = CGRect(x: view.width-size-10,
                                   y: yStart + (CGFloat(index) * 10) + (CGFloat(index) * size),
                                   width: size,
@@ -100,16 +116,20 @@ class PostViewController: UIViewController {
             width: view.width - size - 20,
             height: labelSize.height
         )
+        
+        profileButton.layer.cornerRadius = size / 2
     }
     
     private func setUpButtons() {
         view.addSubview(likeButton)
         view.addSubview(shareButton)
         view.addSubview(commentButton)
+        view.addSubview(profileButton)
         
         likeButton.addTarget(self, action: #selector(didTouchLike), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(didTouchShare), for: .touchUpInside)
         commentButton.addTarget(self, action: #selector(didTouchComment), for: .touchUpInside)
+        profileButton.addTarget(self, action: #selector(didTouchProfile), for: .touchUpInside)
     }
     
     private func setUpDoubleTapToLike() {
@@ -117,6 +137,22 @@ class PostViewController: UIViewController {
         tap.numberOfTapsRequired = 2
         view.addGestureRecognizer(tap)
         view.isUserInteractionEnabled = true
+    }
+    
+    private func configureVideo() {
+        guard let path = Bundle.main.path(forResource: "video", ofType: "mp4") else { return }
+        
+        let url = URL(fileURLWithPath: path)
+        player = AVPlayer(url: url)
+        // add this video to our post
+        
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.frame = view.bounds
+        playerLayer.videoGravity = .resizeAspectFill
+        view.layer.addSublayer(playerLayer)
+        player?.volume = 0
+        
+        player?.play()
     }
     
     @objc private func didDoubleTap(_ gesture: UITapGestureRecognizer) {
@@ -171,6 +207,10 @@ class PostViewController: UIViewController {
     @objc private func didTouchComment() {
         // the reason why we are using the delegate is that we want to display the comment tray and have control of pageVC to manage some features
         delegate?.postViewController(self, didTapCommentButtonFor: model)
+    }
+    
+    @objc private func didTouchProfile() {
+        delegate?.postViewController(self, didTapProfileButtonFor: model)
     }
  
 }
