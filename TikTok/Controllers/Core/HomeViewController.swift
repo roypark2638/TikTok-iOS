@@ -48,6 +48,7 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(horizontalScrollView)
         setUpFeed()
+        horizontalScrollView.contentInsetAdjustmentBehavior = .never
         horizontalScrollView.contentOffset = CGPoint(x: view.width, y: 0)
         setUpHeader()
         horizontalScrollView.delegate = self
