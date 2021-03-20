@@ -35,6 +35,7 @@
 		97A26B8B2604BEB7000C202F /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B8A2604BEB7000C202F /* PostComment.swift */; };
 		97A26B8E2604BF35000C202F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B8D2604BF35000C202F /* User.swift */; };
 		97A26B91260554E4000C202F /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B90260554E4000C202F /* CommentTableViewCell.swift */; };
+		97A26BA926057783000C202F /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 97A26BA826057783000C202F /* video.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		97A26B8A2604BEB7000C202F /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		97A26B8D2604BF35000C202F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		97A26B90260554E4000C202F /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		97A26BA826057783000C202F /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		C4C6D12AC1A6B6DDFF5D0621 /* Pods_TikTok.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TikTok.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE94DDD4E2BF747898DF95B8 /* Pods-TikTok.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.debug.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.debug.xcconfig"; sourceTree = "<group>"; };
 		F495E30C20E09BC08485343E /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		973E0E2C26034DF1000B9BC5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				97A26BA826057783000C202F /* video.mp4 */,
 				973E0E692603509E000B9BC5 /* GoogleService-Info.plist */,
 				973E0E13260347C2000B9BC5 /* AppDelegate.swift */,
 				973E0E15260347C2000B9BC5 /* SceneDelegate.swift */,
@@ -297,6 +300,7 @@
 				973E0E20260347C4000B9BC5 /* LaunchScreen.storyboard in Resources */,
 				973E0E1D260347C4000B9BC5 /* Assets.xcassets in Resources */,
 				973E0E6A2603509E000B9BC5 /* GoogleService-Info.plist in Resources */,
+				97A26BA926057783000C202F /* video.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
