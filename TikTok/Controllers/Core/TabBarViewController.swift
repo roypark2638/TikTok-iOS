@@ -8,10 +8,42 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
+    
+    private var signInPresented = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupControllers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !signInPresented {
+            presentSignInIfNeeded()
+        }
+    }
+    
+    // because this function is in the viewDidAppear, you want to
+    private func presentSignInIfNeeded() {
+        if !AuthManager.shared.isSignedIn {
+            signInPresented = true
+            let vc = SignInViewController()
+            vc.completion = { [weak self] in
+                self?.signInPresented = false
+            }
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: false, completion: nil)
+            
+        }
+        else {
+            
+        }
     }
     
     private func setupControllers() {
