@@ -36,6 +36,8 @@
 		97A26B8E2604BF35000C202F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B8D2604BF35000C202F /* User.swift */; };
 		97A26B91260554E4000C202F /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B90260554E4000C202F /* CommentTableViewCell.swift */; };
 		97A26BA926057783000C202F /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 97A26BA826057783000C202F /* video.mp4 */; };
+		97A26BB02605D0F8000C202F /* AuthField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26BAF2605D0F8000C202F /* AuthField.swift */; };
+		97A26BB32605D10E000C202F /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26BB22605D10E000C202F /* AuthButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		97A26B8D2604BF35000C202F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		97A26B90260554E4000C202F /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		97A26BA826057783000C202F /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
+		97A26BAF2605D0F8000C202F /* AuthField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthField.swift; sourceTree = "<group>"; };
+		97A26BB22605D10E000C202F /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		C4C6D12AC1A6B6DDFF5D0621 /* Pods_TikTok.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TikTok.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE94DDD4E2BF747898DF95B8 /* Pods-TikTok.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.debug.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.debug.xcconfig"; sourceTree = "<group>"; };
 		F495E30C20E09BC08485343E /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
@@ -211,9 +215,8 @@
 		973E0E3426034E74000B9BC5 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				97A26BAC26057F6C000C202F /* Onboarding */,
 				973E0E4226034EE6000B9BC5 /* UserListViewController.swift */,
-				973E0E4526034EEC000B9BC5 /* SignInViewController.swift */,
-				973E0E4826034EF3000B9BC5 /* SignUpViewController.swift */,
 				973E0E4B26034EF8000B9BC5 /* SettingsViewController.swift */,
 				973E0E5326034F4E000B9BC5 /* PostViewController.swift */,
 				973E0EB226047027000B9BC5 /* CommentViewController.swift */,
@@ -233,8 +236,19 @@
 			isa = PBXGroup;
 			children = (
 				97A26B90260554E4000C202F /* CommentTableViewCell.swift */,
+				97A26BAF2605D0F8000C202F /* AuthField.swift */,
+				97A26BB22605D10E000C202F /* AuthButton.swift */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		97A26BAC26057F6C000C202F /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				973E0E4526034EEC000B9BC5 /* SignInViewController.swift */,
+				973E0E4826034EF3000B9BC5 /* SignUpViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				973E0E6426034F94000B9BC5 /* HapticsManager.swift in Sources */,
+				97A26BB32605D10E000C202F /* AuthButton.swift in Sources */,
 				973E0E9B26043B06000B9BC5 /* PostModel.swift in Sources */,
 				973E0E5E26034F74000B9BC5 /* DatabaseManager.swift in Sources */,
 				973E0E3626034E93000B9BC5 /* ExploreViewController.swift in Sources */,
@@ -392,6 +407,7 @@
 				97A26B91260554E4000C202F /* CommentTableViewCell.swift in Sources */,
 				973E0E5B26034F6E000B9BC5 /* StorageManager.swift in Sources */,
 				973E0E14260347C2000B9BC5 /* AppDelegate.swift in Sources */,
+				97A26BB02605D0F8000C202F /* AuthField.swift in Sources */,
 				973E0E16260347C2000B9BC5 /* SceneDelegate.swift in Sources */,
 				97A26B8E2604BF35000C202F /* User.swift in Sources */,
 			);
