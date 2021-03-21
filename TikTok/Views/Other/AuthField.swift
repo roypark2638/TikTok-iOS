@@ -11,11 +11,13 @@ class AuthField: UITextField {
     
     // we want this field to be re-usable
     enum FieldType {
+        case username
         case email
         case password
         
         var title: String {
             switch self {
+            case .username: return "username"
             case .email: return "Email Address"
             case .password: return "Password"
             }
@@ -46,9 +48,11 @@ class AuthField: UITextField {
         autocapitalizationType = .none
         if type == .password {
             isSecureTextEntry = true
+            textContentType = .oneTimeCode
         }
         else if type == .email {
             keyboardType = .emailAddress
+            textContentType = .emailAddress
         }
     }
     
