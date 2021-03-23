@@ -46,8 +46,9 @@ struct AuthManager {
                         completion(.failure(AuthError.SignInFailed))
                     }
                     return
-                    
                 }
+                
+                completion(.success(email))
                 
             }
 
