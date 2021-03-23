@@ -68,6 +68,9 @@ class PostViewController: UIViewController {
     
     var player: AVPlayer?
     
+    // When user watched video to the end, replay again
+    private var playerDidFinishObserver: NSObjectProtocol?
+    
     // MARK: - Init
     
     init(model: PostModel) {
@@ -153,6 +156,20 @@ class PostViewController: UIViewController {
         player?.volume = 0
         
         player?.play()
+        
+        guard let player = player else { return }
+        
+        playerDidFinishObserver = NotificationCenter.default.addObserver(
+            forName: .AVPlayerItemDidPlayToEndTime,
+            object: player.currentItem,
+            queue: .main,
+            using: { (_) in
+                
+                player.seek(to: .zero)
+                player.play()
+            }
+        )
+        
     }
     
     @objc private func didDoubleTap(_ gesture: UITapGestureRecognizer) {
