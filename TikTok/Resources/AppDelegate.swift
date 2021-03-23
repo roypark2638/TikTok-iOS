@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
         self.window = window
         self.window?.makeKeyAndVisible()
+                
         
         FirebaseApp.configure()
         

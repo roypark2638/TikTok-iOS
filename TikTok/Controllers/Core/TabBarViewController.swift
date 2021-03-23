@@ -9,7 +9,11 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
     
+    // MARK: - Init
+    
     private var signInPresented = false
+    
+    // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +31,8 @@ class TabBarViewController: UITabBarController {
             presentSignInIfNeeded()
         }
     }
+    
+    // MARK: - Methods
     
     // because this function is in the viewDidAppear, you want to
     private func presentSignInIfNeeded() {
@@ -51,11 +57,11 @@ class TabBarViewController: UITabBarController {
         let explore = ExploreViewController()
         let camera = CameraViewController()
         let notification = NotificationsViewController()
-        let profile = ProfileViewController(user: User(username: "temp",
-                                                       profilePictureURL: nil,
-                                                       identifier: "ad131"))
-                
-        explore.title = "Explore"
+        let profile = ProfileViewController(
+            user: User(username: "temp",
+                       profilePictureURL: nil,
+                       identifier: "ad131"))
+        
         notification.title = "Notification"
         profile.title = "Profile"    
         

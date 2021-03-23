@@ -49,7 +49,7 @@ class SignUpViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         // add frames
-        addFrames()
+        setUpLayout()
         
     }
     
@@ -93,7 +93,7 @@ class SignUpViewController: UIViewController {
                                for: .touchUpInside)
     }
     
-    private func addFrames() {
+    private func setUpLayout() {
         let imageSize = view.width / 2
         
         logoImageView.frame = CGRect(
@@ -167,7 +167,7 @@ class SignUpViewController: UIViewController {
                 switch result  {
                 case .success:
                     self?.dismiss(animated: true, completion: nil)
-                    print("signed in")
+                    print("signed up")
                 
                 case .failure(let error):
                     print(error)

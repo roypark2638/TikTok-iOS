@@ -50,7 +50,7 @@ class SignInViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         // add frames
-        addFrames()
+        setUpLayout()
         
     }
     
@@ -95,7 +95,7 @@ class SignInViewController: UIViewController {
                                for: .touchUpInside)
     }
     
-    private func addFrames() {
+    private func setUpLayout() {
         let imageSize = view.width / 2
         
         logoImageView.frame = CGRect(
