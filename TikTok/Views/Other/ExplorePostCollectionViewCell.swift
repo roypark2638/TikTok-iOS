@@ -12,7 +12,7 @@ class ExplorePostCollectionViewCell: UICollectionViewCell {
     
     private let mainImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -64,10 +64,8 @@ class ExplorePostCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with viewModel: ExplorePostViewModel) {
-//        mainImageView.image = viewModel.thumbnailImage
-//        titleLabel.text = viewModel.caption
-        mainImageView.image = UIImage(named: "test")
-        titleLabel.text = "Helaodfksodfja iejfaefjaisdfj apsf"
+        mainImageView.image = viewModel.thumbnailImage
+        titleLabel.text = viewModel.caption
     }
 
 }

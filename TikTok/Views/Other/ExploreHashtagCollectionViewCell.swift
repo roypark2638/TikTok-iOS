@@ -36,7 +36,7 @@ class ExploreHashtagCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let iconSize: CGFloat = contentView.height / 5
+        let iconSize: CGFloat = contentView.height / 2
         iconImageView.frame = CGRect(
             x: 10,
             y: (contentView.height - iconSize)/2,
