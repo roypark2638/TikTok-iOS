@@ -56,21 +56,13 @@ class ExploreViewController: UIViewController {
         )
         
         // Trending Posts
-        var trendingCells = [ExploreCell]()
-        for _ in 0...100 {
-            let cell = ExploreCell.post(
-                viewModel: ExplorePostViewModel(
-                    thumbnailImage: UIImage(named: "test"),
-                    caption: "tset",
-                    handler: {
-            }))
-            trendingCells.append(cell)
-        }
         
         sections.append(
             ExploreSection(
                 type: .trendingPosts,
-                cells: trendingCells
+                cells: ExploreManager.shared.getExploreTrendingPosts().compactMap({
+                    return ExploreCell.post(viewModel: $0)
+                })
             )
         )
         // Users
@@ -94,36 +86,9 @@ class ExploreViewController: UIViewController {
         sections.append(
             ExploreSection(
                 type: .trendingHashtags,
-                cells: [
-                    .hashtag(
-                        viewModel: ExploreHashtagViewModel(
-                            text: "#TikTok",
-                            icon: UIImage(systemName: "car"),
-                            count: 1,
-                            handler: {
-                    })),
-                    .hashtag(
-                        viewModel: ExploreHashtagViewModel(
-                            text: "#App",
-                            icon: UIImage(systemName: "car"),
-                            count: 2,
-                            handler: {
-                    })),
-                    .hashtag(
-                        viewModel: ExploreHashtagViewModel(
-                            text: "#SF",
-                            icon: UIImage(systemName: "car"),
-                            count: 3,
-                            handler: {
-                    })),
-                    .hashtag(
-                        viewModel: ExploreHashtagViewModel(
-                            text: "#Korea",
-                            icon: UIImage(systemName: "car"),
-                            count: 4,
-                            handler: {
-                    }))
-                ]
+                cells: ExploreManager.shared.getExploreHashtag().compactMap({
+                    return ExploreCell.hashtag(viewModel: $0)
+                })
             )
         )
         
@@ -131,7 +96,9 @@ class ExploreViewController: UIViewController {
         sections.append(
             ExploreSection(
                 type: .recommended,
-                cells: trendingCells
+                cells: ExploreManager.shared.getExploreRecommended().compactMap({
+                    return ExploreCell.post(viewModel: $0)
+                })
             )
         )
         
@@ -139,7 +106,9 @@ class ExploreViewController: UIViewController {
         sections.append(
             ExploreSection(
                 type: .popular,
-                cells: trendingCells
+                cells: ExploreManager.shared.getExploreRecentPosts().compactMap({
+                    return ExploreCell.post(viewModel: $0)
+                })
             )
         )
         
@@ -147,7 +116,9 @@ class ExploreViewController: UIViewController {
         sections.append(
             ExploreSection(
                 type: .new,
-                cells: trendingCells
+                cells: ExploreManager.shared.getExploreTrendingPosts().compactMap({
+                    return ExploreCell.post(viewModel: $0)
+                })
             )
         )
         

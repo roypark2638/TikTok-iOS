@@ -43,6 +43,73 @@ final class ExploreManager {
         })
     }
     
+    public func getExploreTrendingPosts() -> [ExplorePostViewModel] {
+        guard let exploreData = parseExploreData() else { return [] }
+        
+        return exploreData.trendingPosts.compactMap({
+            ExplorePostViewModel(
+                thumbnailImage: UIImage(named: $0.image),
+                caption: $0.caption
+            ) {
+                // Completion
+            }
+        })
+    }
+    
+    public func getExploreRecentPosts() -> [ExplorePostViewModel] {
+        guard let exploreData = parseExploreData() else { return [] }
+        
+        return exploreData.recentPosts.compactMap({
+            ExplorePostViewModel(
+                thumbnailImage: UIImage(named: $0.image),
+                caption: $0.caption
+            ) {
+                // Completion
+            }
+        })
+    }
+    
+    public func getExploreRecommended() -> [ExplorePostViewModel] {
+        guard let exploreData = parseExploreData() else { return [] }
+        
+        return exploreData.recommended.compactMap({
+            ExplorePostViewModel(
+                thumbnailImage: UIImage(named: $0.image),
+                caption: $0.caption
+            ) {
+                // Completion
+            }
+        })
+    }
+    
+    public func getExplorePopularPosts() -> [ExplorePostViewModel] {
+        guard let exploreData = parseExploreData() else { return [] }
+        
+        return exploreData.popular.compactMap({
+            ExplorePostViewModel(
+                thumbnailImage: UIImage(named: $0.image),
+                caption: $0.caption
+            ) {
+                // Completion
+            }
+        })
+    }
+
+    
+    public func getExploreHashtag() -> [ExploreHashtagViewModel] {
+        guard let exploreData = parseExploreData() else { return [] }
+        
+        return exploreData.hashtags.compactMap({
+            ExploreHashtagViewModel(
+                text: "#" + $0.tag,
+                icon: UIImage(systemName: $0.image),
+                count: $0.count
+            ) {
+                // Completion
+            }
+        })
+    }
+    
     // MARK: - Private
     
     // responsible for taking the JSON file, parsing it, saving it as a local model
