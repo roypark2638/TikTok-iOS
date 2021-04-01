@@ -58,9 +58,9 @@ class TabBarViewController: UITabBarController {
         let camera = CameraViewController()
         let notification = NotificationsViewController()
         let profile = ProfileViewController(
-            user: User(username: "temp",
+            user: User(username: UserDefaults.standard.string(forKey: "username")?.uppercased() ?? "Me",
                        profilePictureURL: nil,
-                       identifier: "ad131"))
+                       identifier: UserDefaults.standard.string(forKey: "username")?.lowercased() ?? ""))
         
         notification.title = "Notification"
         profile.title = "Profile"    
