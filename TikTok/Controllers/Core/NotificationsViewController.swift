@@ -26,6 +26,19 @@ class NotificationsViewController: UIViewController {
         table.isHidden = true
         table.register(UITableViewCell.self,
                        forCellReuseIdentifier: "cell")
+        table.register(
+            NotificationUserFollowTableViewCell.self,
+            forCellReuseIdentifier: NotificationUserFollowTableViewCell.identifier
+        )
+        table.register(
+            NotificationPostLikeTableViewCell.self,
+            forCellReuseIdentifier: NotificationPostLikeTableViewCell.identifier
+        )
+        table.register(
+            NotificationPostCommentTableViewCell.self,
+            forCellReuseIdentifier: NotificationPostCommentTableViewCell.identifier
+        )
+        
         return table
     }()
     
@@ -88,6 +101,7 @@ class NotificationsViewController: UIViewController {
     // MARK: - Objc Methods
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension NotificationsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -99,10 +113,69 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = notifications[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = model.text
-        cell.backgroundColor = .systemGreen
-        return cell
+        switch model.type {
         
+        case .userFollow(let username):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: NotificationUserFollowTableViewCell.identifier,
+                for: indexPath
+            ) as? NotificationUserFollowTableViewCell
+            else {
+                return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            }
+            cell.configure(with: username, model: model)
+            return cell
+        case .postLike(let postName):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: NotificationPostLikeTableViewCell.identifier,
+                    for: indexPath
+            ) as? NotificationPostLikeTableViewCell
+            else {
+                return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            }
+            cell.configure(with: postName, model: model)
+            return cell
+        case .postComment(let postName):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: NotificationPostCommentTableViewCell.identifier,
+                    for: indexPath
+            ) as? NotificationPostCommentTableViewCell
+            else {
+                return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            }
+            cell.configure(with: postName, model: model)
+            return cell
+        }
+                
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        let model = notifications[indexPath.row]
+        model.isHidden = true
+        
+        DatabaseManager.shared.markNotificationAsHidden(notificationID: model.identifier) { [weak self]success in
+            DispatchQueue.main.async {
+                if success {
+                    self?.notifications = self?.notifications.filter({ $0.isHidden == false }) ?? []
+                    tableView.beginUpdates()
+                    tableView.deleteRows(at: [indexPath], with: .none)
+                    tableView.endUpdates()
+                }
+            }
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }
