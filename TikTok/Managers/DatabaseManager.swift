@@ -85,6 +85,13 @@ final class DatabaseManager {
         completion(Notification.mockData())
     }
     
+    public func markNotificationAsHidden(notificationID: String, completion: @escaping (Bool) -> Void) {
+        completion(true)
+    }
+    
+    public func follow(username: String, completion: @escaping (Bool) -> Void ) {
+        completion(true)
+    }
     
     public func getAllUsers(completion: ([String]) -> Void) {
         
