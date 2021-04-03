@@ -7,9 +7,18 @@
 
 import UIKit
 
+protocol NotificationUserFollowTableViewCellDelegate: AnyObject {
+    func notificationUserFollowTableViewCell(_ cell: NotificationUserFollowTableViewCell,
+                                             didTapFollowFor username: String)
+    func notificationUserFollowTableViewCell(_ cell: NotificationUserFollowTableViewCell,
+                                             didTapAvatarFor username : String)
+}
+
 class NotificationUserFollowTableViewCell: UITableViewCell {
     // MARK: - Prop
     static let identifier = "NotificationUserFollowTableViewCell"
+    
+    weak var delegate: NotificationUserFollowTableViewCellDelegate?
     
     // avatar, label, follow button
     
@@ -45,6 +54,8 @@ class NotificationUserFollowTableViewCell: UITableViewCell {
         return label
     }()
     
+    var username: String?
+    
     // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -55,6 +66,10 @@ class NotificationUserFollowTableViewCell: UITableViewCell {
         contentView.addSubview(followButton)
         contentView.addSubview(dateLabel)
         selectionStyle = .none
+        followButton.addTarget(self, action: #selector(didTapFollow), for: .touchUpInside)
+        avatarImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapAvatar))
+        avatarImageView.addGestureRecognizer(tap)
     }
     
     required init?(coder: NSCoder) {
@@ -115,13 +130,37 @@ class NotificationUserFollowTableViewCell: UITableViewCell {
         avatarImageView.image = nil
         label.text = nil
         dateLabel.text = nil
+        followButton.setTitle("Follow", for: .normal)
+        followButton.backgroundColor = .systemGreen
+        followButton.layer.borderWidth = 0
+        followButton.layer.borderColor = nil
     }
 
     // MARK: Methods
     
     func configure(with username: String, model: Notification) {
+        self.username = username
         avatarImageView.image = UIImage(named: "test")
         label.text = model.text
         dateLabel.text = .date(with: model.date)
+    }
+    
+    
+    @objc func didTapAvatar() {
+        guard let username = username else { return }
+        delegate?.notificationUserFollowTableViewCell(self,
+                                                      didTapAvatarFor: username)
+    }
+    
+    @objc private func didTapFollow() {
+        guard let username = username else { return }
+        
+        followButton.setTitle("Following", for: .normal)
+        followButton.backgroundColor = .clear
+        followButton.layer.borderWidth = 1
+        followButton.layer.borderColor = UIColor.lightGray.cgColor
+        
+        delegate?.notificationUserFollowTableViewCell(self,
+                                                      didTapFollowFor: username)
     }
 }
