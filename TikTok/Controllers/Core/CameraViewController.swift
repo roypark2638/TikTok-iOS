@@ -178,5 +178,10 @@ extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
     
     @objc func didTapNext() {
         // push caption controller
+        guard let url = recordedVideoURL else { return }
+        
+        let vc = CaptionViewController(videoURL: url)
+            navigationController?.pushViewController(vc, animated: true)
+        
     }
 }

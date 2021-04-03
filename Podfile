@@ -12,5 +12,6 @@ pod 'Firebase/Crashlytics'
 
 pod 'Appirater'
 pod 'SDWebImage'
+pod 'ProgressHUD'
 
 end

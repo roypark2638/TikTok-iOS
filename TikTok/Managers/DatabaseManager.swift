@@ -93,6 +93,62 @@ final class DatabaseManager {
         completion(true)
     }
     
+    public func getUsername(for email: String, completion: @escaping (String?) -> Void) {
+        database.child("users").observeSingleEvent(of: .value) { (snapshot) in
+            guard let users = snapshot.value as? [String: [String: Any]] else {
+                completion(nil)
+                return
+            }
+                        
+            for (username, value) in users {
+                if value["email"] as? String == email {
+                    completion(username)
+                    break
+                }
+            }
+        }
+    }
+    
+    public func insertPost(fileName: String, completion: @escaping (Bool) -> Void) {
+        // get the current username
+        guard let username = UserDefaults.standard.string(forKey: "username") else {
+            completion(false)
+            return            
+        }
+        
+        // use the username under our database username so we don't have to for loop.
+        database.child("users").child(username).observeSingleEvent(of: .value) { [weak self] (snapshot) in
+            guard var value = snapshot.value as? [String: Any] else {
+                completion(false)
+                return
+            }
+            
+            if var posts = value["posts"] as? [String] {
+                // if it's not the first one, append the new post onto the database posts
+                posts.append(fileName)
+                value["posts"] = posts
+                self?.database.child("users").child(username).setValue(value) { (error, _) in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                }
+            }
+            else {
+                // when it's the first post on the user, create a new posts
+                value["posts"] = [fileName]
+                self?.database.child("users").child(username).setValue(value) { (error, _) in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                }
+            }
+        }
+    }
+    
     public func getAllUsers(completion: ([String]) -> Void) {
         
     }
