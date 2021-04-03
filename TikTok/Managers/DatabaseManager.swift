@@ -109,7 +109,7 @@ final class DatabaseManager {
         }
     }
     
-    public func insertPost(fileName: String, completion: @escaping (Bool) -> Void) {
+    public func insertPost(fileName: String, caption: String, completion: @escaping (Bool) -> Void) {
         // get the current username
         guard let username = UserDefaults.standard.string(forKey: "username") else {
             completion(false)
@@ -123,9 +123,14 @@ final class DatabaseManager {
                 return
             }
             
-            if var posts = value["posts"] as? [String] {
+            let newEntry = [
+                "name": fileName,
+                "caption": caption
+            ]
+            
+            if var posts = value["posts"] as? [[String:Any]] {
                 // if it's not the first one, append the new post onto the database posts
-                posts.append(fileName)
+                posts.append(newEntry)
                 value["posts"] = posts
                 self?.database.child("users").child(username).setValue(value) { (error, _) in
                     guard error == nil else {
@@ -137,7 +142,7 @@ final class DatabaseManager {
             }
             else {
                 // when it's the first post on the user, create a new posts
-                value["posts"] = [fileName]
+                value["posts"] = [newEntry]
                 self?.database.child("users").child(username).setValue(value) { (error, _) in
                     guard error == nil else {
                         completion(false)
