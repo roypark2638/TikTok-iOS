@@ -36,6 +36,8 @@
 		978E8F5B2616989C005EEF74 /* NotificationUserFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E8F5A2616989C005EEF74 /* NotificationUserFollowTableViewCell.swift */; };
 		978E8F5E26169921005EEF74 /* NotificationPostLikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E8F5D26169921005EEF74 /* NotificationPostLikeTableViewCell.swift */; };
 		978E8F6126169937005EEF74 /* NotificationPostCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E8F6026169937005EEF74 /* NotificationPostCommentTableViewCell.swift */; };
+		978E8F6626190B62005EEF74 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E8F6526190B62005EEF74 /* RecordButton.swift */; };
+		978E8F6926191126005EEF74 /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E8F6826191126005EEF74 /* CaptionViewController.swift */; };
 		97A26B8B2604BEB7000C202F /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B8A2604BEB7000C202F /* PostComment.swift */; };
 		97A26B8E2604BF35000C202F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B8D2604BF35000C202F /* User.swift */; };
 		97A26B91260554E4000C202F /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B90260554E4000C202F /* CommentTableViewCell.swift */; };
@@ -91,6 +93,8 @@
 		978E8F5A2616989C005EEF74 /* NotificationUserFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUserFollowTableViewCell.swift; sourceTree = "<group>"; };
 		978E8F5D26169921005EEF74 /* NotificationPostLikeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPostLikeTableViewCell.swift; sourceTree = "<group>"; };
 		978E8F6026169937005EEF74 /* NotificationPostCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPostCommentTableViewCell.swift; sourceTree = "<group>"; };
+		978E8F6526190B62005EEF74 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
+		978E8F6826191126005EEF74 /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
 		97A26B8A2604BEB7000C202F /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		97A26B8D2604BF35000C202F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		97A26B90260554E4000C202F /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -268,6 +272,8 @@
 				973E0E4B26034EF8000B9BC5 /* SettingsViewController.swift */,
 				973E0E5326034F4E000B9BC5 /* PostViewController.swift */,
 				973E0EB226047027000B9BC5 /* CommentViewController.swift */,
+				978E8F6526190B62005EEF74 /* RecordButton.swift */,
+				978E8F6826191126005EEF74 /* CaptionViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -477,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				978E8F6926191126005EEF74 /* CaptionViewController.swift in Sources */,
 				973E0E6426034F94000B9BC5 /* HapticsManager.swift in Sources */,
 				97A26BFC2609BBA3000C202F /* ExploreHashtagCollectionViewCell.swift in Sources */,
 				97A26BB32605D10E000C202F /* AuthButton.swift in Sources */,
@@ -521,6 +528,7 @@
 				978E8F58261693C7005EEF74 /* Notification.swift in Sources */,
 				973E0E16260347C2000B9BC5 /* SceneDelegate.swift in Sources */,
 				97A26B8E2604BF35000C202F /* User.swift in Sources */,
+				978E8F6626190B62005EEF74 /* RecordButton.swift in Sources */,
 				97A26BDB26095FA1000C202F /* ExploreCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
