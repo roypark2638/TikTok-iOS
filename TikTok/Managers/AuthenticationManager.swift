@@ -48,6 +48,14 @@ struct AuthManager {
                     return
                 }
                 
+                DatabaseManager.shared.getUsername(for: email) { (username) in
+                    if let username = username {
+                        UserDefaults.standard.setValue(username, forKey: "username")
+                        print("username: \(username)")
+                    }
+                }
+                
+                // Successfully signed in
                 completion(.success(email))
                 
             }
@@ -75,8 +83,11 @@ struct AuthManager {
                     completion(.failure(AuthError.SignUpFailed))
                 }
                 return
-            
             }
+            
+            // Successfully Signed up
+            UserDefaults.standard.setValue(username, forKey: "username")
+            
             DatabaseManager.shared.insertUser(with: email, username: username, completion: completion)
             
         }
