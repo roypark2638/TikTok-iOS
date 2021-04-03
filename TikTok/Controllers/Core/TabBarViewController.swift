@@ -70,6 +70,13 @@ class TabBarViewController: UITabBarController {
         let nav3 = UINavigationController(rootViewController: notification)
         let nav4 = UINavigationController(rootViewController: profile)
         
+        nav3.navigationBar.tintColor = .label
+        if #available(iOS 14.0, *) {
+            nav3.navigationItem.backButtonDisplayMode = .minimal
+        } else {
+            // Fallback on earlier versions
+        }
+        
         nav1.navigationBar.backgroundColor = .clear
         nav1.navigationBar.setBackgroundImage(UIImage(), for: .default)
         nav1.navigationBar.shadowImage = UIImage()

@@ -33,6 +33,9 @@
 		973E0E9B26043B06000B9BC5 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973E0E9A26043B06000B9BC5 /* PostModel.swift */; };
 		973E0EB326047027000B9BC5 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973E0EB226047027000B9BC5 /* CommentViewController.swift */; };
 		978E8F58261693C7005EEF74 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E8F57261693C7005EEF74 /* Notification.swift */; };
+		978E8F5B2616989C005EEF74 /* NotificationUserFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E8F5A2616989C005EEF74 /* NotificationUserFollowTableViewCell.swift */; };
+		978E8F5E26169921005EEF74 /* NotificationPostLikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E8F5D26169921005EEF74 /* NotificationPostLikeTableViewCell.swift */; };
+		978E8F6126169937005EEF74 /* NotificationPostCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E8F6026169937005EEF74 /* NotificationPostCommentTableViewCell.swift */; };
 		97A26B8B2604BEB7000C202F /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B8A2604BEB7000C202F /* PostComment.swift */; };
 		97A26B8E2604BF35000C202F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B8D2604BF35000C202F /* User.swift */; };
 		97A26B91260554E4000C202F /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A26B90260554E4000C202F /* CommentTableViewCell.swift */; };
@@ -85,6 +88,9 @@
 		973E0E9A26043B06000B9BC5 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		973E0EB226047027000B9BC5 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		978E8F57261693C7005EEF74 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		978E8F5A2616989C005EEF74 /* NotificationUserFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUserFollowTableViewCell.swift; sourceTree = "<group>"; };
+		978E8F5D26169921005EEF74 /* NotificationPostLikeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPostLikeTableViewCell.swift; sourceTree = "<group>"; };
+		978E8F6026169937005EEF74 /* NotificationPostCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPostCommentTableViewCell.swift; sourceTree = "<group>"; };
 		97A26B8A2604BEB7000C202F /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		97A26B8D2604BF35000C202F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		97A26B90260554E4000C202F /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -282,8 +288,19 @@
 				97A26B90260554E4000C202F /* CommentTableViewCell.swift */,
 				97EA1946260DB39300D08BAC /* ProfileHeaderCollectionReusableView.swift */,
 				97EA194A260DB90D00D08BAC /* PostCollectionViewCell.swift */,
+				978E8F632616994C005EEF74 /* Notification */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		978E8F632616994C005EEF74 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				978E8F5A2616989C005EEF74 /* NotificationUserFollowTableViewCell.swift */,
+				978E8F5D26169921005EEF74 /* NotificationPostLikeTableViewCell.swift */,
+				978E8F6026169937005EEF74 /* NotificationPostCommentTableViewCell.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		97A26BAC26057F6C000C202F /* Onboarding */ = {
@@ -470,6 +487,7 @@
 				973E0E3626034E93000B9BC5 /* ExploreViewController.swift in Sources */,
 				97A26BF32609BB7F000C202F /* ExploreBannerCollectionViewCell.swift in Sources */,
 				973E0E4326034EE6000B9BC5 /* UserListViewController.swift in Sources */,
+				978E8F6126169937005EEF74 /* NotificationPostCommentTableViewCell.swift in Sources */,
 				973E0E4C26034EF8000B9BC5 /* SettingsViewController.swift in Sources */,
 				973E0E5826034F65000B9BC5 /* APICaller.swift in Sources */,
 				973E0E5426034F4E000B9BC5 /* PostViewController.swift in Sources */,
@@ -493,7 +511,9 @@
 				97A26BF02609A143000C202F /* ExploreManager.swift in Sources */,
 				97A26B91260554E4000C202F /* CommentTableViewCell.swift in Sources */,
 				973E0E5B26034F6E000B9BC5 /* StorageManager.swift in Sources */,
+				978E8F5B2616989C005EEF74 /* NotificationUserFollowTableViewCell.swift in Sources */,
 				97A26BE12609617D000C202F /* ExploreBannerViewModel.swift in Sources */,
+				978E8F5E26169921005EEF74 /* NotificationPostLikeTableViewCell.swift in Sources */,
 				973E0E14260347C2000B9BC5 /* AppDelegate.swift in Sources */,
 				97A26BB02605D0F8000C202F /* AuthField.swift in Sources */,
 				97EA1950260DD14900D08BAC /* ProfileHeaderViewModel.swift in Sources */,
