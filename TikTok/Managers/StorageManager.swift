@@ -17,16 +17,37 @@ final class StorageManager {
     
     // Public
     
-    public func getVideoURL(with identifier: String, completion: (URL) -> Void) {
-        
-    }
-    
     public func uploadVideo(from url: URL, fileName: String, caption: String, completion: @escaping (Bool) -> Void) {
         guard let username = UserDefaults.standard.string(forKey: "username") else { return }
         
         storageBucket.child("videos/\(username)/\(fileName)").putFile(from: url,
                                                                    metadata: nil) { (_, error) in
             completion(error == nil)
+        }
+    }
+    
+    public func uploadProfilePicture(with image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
+        guard let username = UserDefaults.standard.string(forKey: "username") else { return }
+        
+        guard let imageData = image.pngData() else { return }
+        
+        let path = "profile_pictures/\(username)/picture.png"
+        
+        storageBucket.child("profile_pictures/\(username)/picture.png").putData(imageData, metadata: nil) { (_, error) in
+            if let error = error {
+                completion(.failure(error))
+            }
+            else {
+                self.storageBucket.child(path).downloadURL { (url, error) in
+                    guard let url = url else {
+                        if let error = error {
+                            completion(.failure(error))
+                        }
+                        return
+                    }
+                    completion(.success(url))
+                }
+            }
         }
     }
     
