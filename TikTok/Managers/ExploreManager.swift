@@ -94,7 +94,11 @@ final class ExploreManager {
                 DispatchQueue.main.async {
                     // user id to fetch post from firebase
                     let postID = model.id
-                    let vc = PostViewController(model: PostModel(identifier: postID))
+                    let vc = PostViewController(model: PostModel(identifier: postID, user:User(
+                        username: "RoyPark",
+                        profilePictureURL: nil,
+                        identifier: UUID().uuidString
+                     )))
                     self?.delegate?.pushViewController(vc)
                 }
             }
@@ -112,7 +116,11 @@ final class ExploreManager {
                 DispatchQueue.main.async {
                     // user id to fetch post from firebase
                     let postID = model.id
-                    let vc = PostViewController(model: PostModel(identifier: postID))
+                    let vc = PostViewController(model: PostModel(identifier: postID, user:User(
+                        username: "RoyPark",
+                        profilePictureURL: nil,
+                        identifier: UUID().uuidString
+                     )))
                     self?.delegate?.pushViewController(vc)
                 }
             }
@@ -131,7 +139,11 @@ final class ExploreManager {
                 DispatchQueue.main.async {
                     // user id to fetch post from firebase
                     let postID = model.id
-                    let vc = PostViewController(model: PostModel(identifier: postID))
+                    let vc = PostViewController(model: PostModel(identifier: postID, user:User(
+                        username: "RoyPark",
+                        profilePictureURL: nil,
+                        identifier: UUID().uuidString
+                     )))
                     self?.delegate?.pushViewController(vc)
                 }
             }
@@ -150,7 +162,11 @@ final class ExploreManager {
                 DispatchQueue.main.async {
                     // user id to fetch post from firebase
                     let postID = model.id
-                    let vc = PostViewController(model: PostModel(identifier: postID))
+                    let vc = PostViewController(model: PostModel(identifier: postID, user:User(
+                        username: "RoyPark",
+                        profilePictureURL: nil,
+                        identifier: UUID().uuidString
+                     )))
                     self?.delegate?.pushViewController(vc)
                 }
             }
