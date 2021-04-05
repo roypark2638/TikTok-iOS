@@ -126,13 +126,18 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         )   as? PostCollectionViewCell else {
                 return UICollectionViewCell()
             }
-        cell.backgroundColor = .systemBlue
+        cell.configure(with: postModel)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         // open post
+        let post = posts[indexPath.row]
+        let vc = PostViewController(model: post)
+        vc.delegate = self
+        vc.title = "Video"
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     
@@ -267,4 +272,16 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             }
         }
     }
+}
+
+extension ProfileViewController: PostViewControllerDelegate {
+    func postViewController(_ vc: PostViewController, didTapCommentButtonFor post: PostModel) {
+        // Present comments
+    }
+    
+    func postViewController(_ vc: PostViewController, didTapProfileButtonFor post: PostModel) {
+        // Push another profile
+    }
+    
+    
 }

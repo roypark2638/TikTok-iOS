@@ -29,4 +29,9 @@ struct PostModel {
         }
         return posts
     }
+    
+    // computed property to get the child path
+    var videoChildPath: String {
+        return "videos/\(user.username.lowercased())/\(fileName)"
+    }
 }

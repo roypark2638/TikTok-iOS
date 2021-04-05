@@ -66,6 +66,22 @@ class PostViewController: UIViewController {
         return label
     }()
     
+    // to send back our video that we are playing
+    private let videoView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.clipsToBounds = true
+        return view
+    }()
+    
+    private let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.tintColor = .label
+        spinner.hidesWhenStopped = true
+        spinner.startAnimating()
+        return spinner
+    }()
+    
     var player: AVPlayer?
     
     // When user watched video to the end, replay again
@@ -81,17 +97,17 @@ class PostViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError()
     }
-
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // first subview on Z
+        view.addSubview(videoView)
+        videoView.addSubview(spinner)
         configureVideo()
-        
-        let colors: [UIColor] = [
-            .systemPink, .green, .black, .yellow, .blue, .cyan, .brown
-        ]
-        view.backgroundColor = colors.randomElement()
+                
+        view.backgroundColor = .black
         
         setUpButtons()
         setUpDoubleTapToLike()
@@ -102,8 +118,17 @@ class PostViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        videoView.frame = view.bounds
+        spinner.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: 100,
+            height: 100
+        )
+        spinner.center = videoView.center
+        
         let size: CGFloat = 40
-//        let tapBarHeight: CGFloat = tabBarController?.tabBar.height ?? 0
+        //        let tapBarHeight: CGFloat = tabBarController?.tabBar.height ?? 0
         let yStart: CGFloat = view.height - (size * 5.0) - 15.0 - view.safeAreaInsets.bottom
         for (index, button) in [profileButton, likeButton, commentButton, shareButton].enumerated() {
             button.frame = CGRect(x: view.width-size-10,
@@ -143,20 +168,39 @@ class PostViewController: UIViewController {
     }
     
     private func configureVideo() {
-        guard let path = Bundle.main.path(forResource: "video", ofType: "mp4") else { return }
-        
-        let url = URL(fileURLWithPath: path)
-        player = AVPlayer(url: url)
-        // add this video to our post
-        
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = view.bounds
-        playerLayer.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(playerLayer)
-        player?.volume = 0
-        
-        player?.play()
-        
+        StorageManager.shared.getDownloadURL(for: model) { [weak self] (result) in
+            DispatchQueue.main.async {
+                guard let strongSelf = self else { return }
+                strongSelf.spinner.stopAnimating()
+                strongSelf.spinner.removeFromSuperview()
+                switch result {
+                case .success(let url):
+                    
+                    strongSelf.player = AVPlayer(url: url)
+                    // add this video to our post
+                    
+                    let playerLayer = AVPlayerLayer(player: strongSelf.player)
+                    playerLayer.frame = strongSelf.view.bounds
+                    playerLayer.videoGravity = .resizeAspectFill
+                    strongSelf.videoView.layer.addSublayer(playerLayer)
+                    
+                    strongSelf.player?.volume = 0
+                    strongSelf.player?.play()
+                case .failure:
+                    guard let path = Bundle.main.path(forResource: "video", ofType: "mp4") else { return }
+                    let url = URL(fileURLWithPath: path)
+                    self?.player = AVPlayer(url: url)
+                    // add this video to our post
+                    
+                    let playerLayer = AVPlayerLayer(player: self?.player)
+                    playerLayer.frame = strongSelf.view.bounds
+                    playerLayer.videoGravity = .resizeAspectFill
+                    strongSelf.videoView.layer.addSublayer(playerLayer)
+                    strongSelf.player?.volume = 0
+                    strongSelf.player?.play()
+                }
+            }
+        }
         guard let player = player else { return }
         
         playerDidFinishObserver = NotificationCenter.default.addObserver(
@@ -169,8 +213,8 @@ class PostViewController: UIViewController {
                 player.play()
             }
         )
-        
     }
+    
     
     @objc private func didDoubleTap(_ gesture: UITapGestureRecognizer) {
         if !model.isLikedByCurrentUser {
@@ -229,5 +273,5 @@ class PostViewController: UIViewController {
     @objc private func didTouchProfile() {
         delegate?.postViewController(self, didTapProfileButtonFor: model)
     }
- 
+    
 }

@@ -98,6 +98,8 @@ class TabBarViewController: UITabBarController {
         nav3.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "bell"), tag: 4)
         nav4.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person.circle"), tag: 5)
         
+        nav4.navigationBar.tintColor = .label
+        
         setViewControllers([nav1, nav2, cameraNav, nav3, nav4], animated: false)
     }
 
