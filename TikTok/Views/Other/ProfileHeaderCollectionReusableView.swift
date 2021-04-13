@@ -167,7 +167,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         
         if let isFollowing = viewModel.isFollowing {
             primaryButton.backgroundColor = isFollowing ? .secondarySystemBackground : .systemPink
-            primaryButton.setTitle(isFollowing ? "UnFollow" : "Follow", for: .normal)
+            primaryButton.setTitle(isFollowing ? "Unfollow" : "Follow", for: .normal)
         }
         else {
             primaryButton.backgroundColor = .secondarySystemBackground
@@ -186,7 +186,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     @objc private func didTapFollowing() {
         guard let safeViewModel = viewModel else { return }
         delegate?.profileHeaderCollectionReusableView(self,
-                                                      didTapFollowersButton: safeViewModel)
+                                                      didTapFollowingButtonWith: safeViewModel)
     }
     
     @objc private func didTapPrimary() {
