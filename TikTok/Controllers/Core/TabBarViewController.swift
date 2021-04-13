@@ -66,6 +66,10 @@ class TabBarViewController: UITabBarController {
             user: User(username: UserDefaults.standard.string(forKey: "username")?.uppercased() ?? "Me",
                        profilePictureURL: URL(string: urlString ?? ""),
                        identifier: UserDefaults.standard.string(forKey: "username")?.lowercased() ?? ""))
+//        let profile = ProfileViewController(
+//            user: User(username: "jasmine".uppercased() ?? "ME",
+//                       profilePictureURL: nil,
+//                       identifier: "jasmine"))
         
         notification.title = "Notification"
         profile.title = "Profile"    
@@ -86,6 +90,7 @@ class TabBarViewController: UITabBarController {
         nav1.navigationBar.backgroundColor = .clear
         nav1.navigationBar.setBackgroundImage(UIImage(), for: .default)
         nav1.navigationBar.shadowImage = UIImage()
+        
         
         cameraNav.navigationBar.backgroundColor = .clear
         cameraNav.navigationBar.setBackgroundImage(UIImage(), for: .default)
