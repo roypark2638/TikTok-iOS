@@ -45,6 +45,11 @@ class ProfileViewController: UIViewController {
     
     private var posts = [PostModel]()
     
+    private var followers = [String]()
+    
+    private var following = [String]()
+    
+    private var isFollower: Bool = false
     
     // MARK: - Init
     
@@ -63,7 +68,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = user.username.uppercased()
+//        title = user.username.uppercased()
         view.backgroundColor = .systemBackground
         
         view.addSubview(collectionView)
@@ -73,6 +78,11 @@ class ProfileViewController: UIViewController {
 
         configureNavigationBar()
         fetchPosts()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = user.username.uppercased()
     }
     
     override func viewDidLayoutSubviews() {
@@ -167,13 +177,58 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return UICollectionReusableView()
         }
         header.delegate = self
-        let viewModel = ProfileHeaderViewModel(
-            profileImageURL: user.profilePictureURL,
-            followerCount: 10,
-            followingCount: 20,
-            isFollowing: isCurrentUserProfile ? nil : false
-        )
-        header.configure(with: viewModel)
+        
+        // once we are done with both of these operations, then we want to configure our viewModel and call the configure function.
+        // How do we use the concurrency to do that?
+        // DispatchGroup.
+        // we can go ahead and make two requests, set a notify blocks
+        let group = DispatchGroup()
+        // two pieces of the codes are entered
+        group.enter()
+        group.enter()
+        group.enter()
+        
+        DatabaseManager.shared.getRelationships(for: user,
+                                                type: .followers
+        ) { [weak self] (followers) in
+            // defer: execute the block of the code once the scope of the closure is about to leave
+            defer {
+                group.leave()
+            }
+            self?.followers = followers
+        }
+        
+        DatabaseManager.shared.getRelationships(for: user,
+                                                type: .following
+        ) { [weak self] (following) in
+            defer {
+                group.leave()
+            }
+            self?.following = following
+        }
+        
+        DatabaseManager.shared.isValidRelationship(for: user,
+                                                   type: .followers
+        ) { [weak self] (isFollower) in
+            defer {
+                group.leave()
+            }
+            self?.isFollower = isFollower
+        }
+        
+        // this is the closure to execute on the main thread and it at the end of group
+        
+        group.notify(queue: .main) {
+            let viewModel = ProfileHeaderViewModel(
+                profileImageURL: self.user.profilePictureURL,
+                followerCount: self.followers.count,
+                followingCount: self.following.count,
+                isFollowing: self.isCurrentUserProfile ? nil : self.isFollower
+            )
+            header.configure(with: viewModel)
+        }
+        
+        
                 
         return header
     }
@@ -190,23 +245,63 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
                                              didTapPrimaryButtonWith viewModel: ProfileHeaderViewModel) {
         guard let currentUsername = UserDefaults.standard.string(forKey: "username") else { return }
         
-        if self.user.username == currentUsername {
+        if isCurrentUserProfile {
             // Edit Profile
+            DispatchQueue.main.async {
+                let vc = EditProfileViewController()
+                let navVC = UINavigationController(rootViewController: vc)
+                self.present(navVC, animated: true, completion: nil)
+                
+            }
         }
         else {
             // Follow or unfollow current users profile that we are viewing
-            
+            if self.isFollower {
+                // unfollow it
+                DatabaseManager.shared.updateRelationship(for: user, follow: false) { [weak self] (success) in
+                    if success {
+                        DispatchQueue.main.async {
+                            self?.isFollower = false
+                            self?.collectionView.reloadData()
+                        }
+                    }
+                    else {
+                        // show error alert
+                    }
+                }
+            }
+            else {
+                // follow
+                DatabaseManager.shared.updateRelationship(for: user, follow: true) { [weak self] (success) in
+                    if success {
+                        DispatchQueue.main.async {
+                            self?.isFollower = true
+                            self?.collectionView.reloadData()
+                        }
+                    }
+                    else {
+                        // show error alert
+                    }
+                }
+            }
+  
         }
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ProfileHeaderViewModel) {
-        
+        let vc = UserListViewController(type: .following, user: user)
+        title = "Following"
+        vc.users = following
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowersButton viewModel: ProfileHeaderViewModel) {
-        
+        let vc = UserListViewController(type: .followers, user: user)
+        title = "Followers"
+        vc.users = followers
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapAvatarFor viewModel: ProfileHeaderViewModel) {
