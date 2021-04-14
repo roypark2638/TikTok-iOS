@@ -68,7 +68,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        title = user.username.uppercased()
+        title = user.username.uppercased()
         view.backgroundColor = .systemBackground
         
         view.addSubview(collectionView)
@@ -95,7 +95,13 @@ class ProfileViewController: UIViewController {
     private func configureNavigationBar() {
         let username = UserDefaults.standard.string(forKey: "username")?.uppercased() ?? "ME"
         if title == username {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .done, target: self, action: #selector(didTapSettingsButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "gear"),
+            style: .done,
+            target: self,
+            action: #selector(didTapSettingsButton)
+        )
+            
         }
     }
     
