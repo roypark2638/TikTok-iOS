@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import SafariServices
 
-struct Section {
+struct SettingsSection {
     let title: String
-    let option: [Option]
+    let option: [SettingsOption]
 }
 
-struct Option {
+struct SettingsOption {
     let title: String
     let handler: (() -> Void)
 }
@@ -27,10 +28,36 @@ class SettingsViewController: UIViewController {
         return tableView
     }()
     
-    private let sections = [Section]()
+    private var sections = [SettingsSection]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sections = [
+            SettingsSection(
+                title: "Information", option: [
+                    
+                    SettingsOption(title: "Terms of Service", handler: { [weak self] in
+                        DispatchQueue.main.async {
+                            guard let url = URL(string: "https://www.tiktok.com/legal/terms-of-service") else { return }
+                            
+                            let vc = SFSafariViewController(url: url)
+                            self?.present(vc, animated: true, completion: nil)
+                        }
+                    }),
+                    SettingsOption(title: "Privacy Policy", handler: { [weak self] in
+                        DispatchQueue.main.async {
+                            guard let url = URL(string: "https://www.tiktok.com/legal/privacy-policy") else { return }
+                            
+                            let vc = SFSafariViewController(url: url)
+                            self?.present(vc, animated: true, completion: nil)
+                        }
+                    })
+                    
+                ]
+            )
+        ]
+        
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
         tableView.delegate = self
@@ -49,7 +76,6 @@ class SettingsViewController: UIViewController {
         button.setTitle("Sign Out", for: .normal)
         button.setTitleColor(.systemRed, for: .normal)
         button.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
-        button.backgroundColor = .black
         footer.addSubview(button)
         tableView.tableFooterView = footer
     }
@@ -89,24 +115,33 @@ class SettingsViewController: UIViewController {
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return sections[section].option.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = sections[indexPath.section].option[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "hi"
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = model.title
         return cell
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
+
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let model = sections[indexPath.section].option[indexPath.row]
+        model.handler()
         
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].title
     }
 }
